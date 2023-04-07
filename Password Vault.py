@@ -1,3 +1,7 @@
+###########
+# Variables
+###########
+
 # Store username and password
 USERNAME = "ethan"
 PASSWORD = "password"
@@ -12,7 +16,12 @@ accounts = [
     ["GitHub", "Password3"]
 ]
 
+###########
+# Functions
+###########
+
 def get_input(array, desc_index, description = ''):
+    '''Gets an input from the user for an array of options'''
     print(description)
     # Print and number descriptions in array
     selection_string = ''
@@ -34,6 +43,7 @@ def get_input(array, desc_index, description = ''):
     return int(selection) - 1
 
 def validate_password(password):
+    '''Checks the password is correct'''
     has_digits = any(char.isdigit() for char in password)
     has_letters = any(char.isalpha() for char in password)
     has_length = len(password) >= 8
@@ -46,6 +56,7 @@ class feature:
         self.run = function
 
 def find_password():
+    '''Finds the password of a stored account'''
     # Get account
     selection = get_input(accounts, 0, 'Accounts:')
     
@@ -53,6 +64,7 @@ def find_password():
     return
 
 def add_account():
+    '''Adds a new account and password'''
     # Get account name
     account_name = input("Input New Account Name: ")
     # End if account already exists
@@ -73,6 +85,7 @@ def add_account():
     accounts.append([account_name, account_password])
 
 def change_password():
+    '''Changes an existing account's password'''
     # Get account
     selection = get_input(accounts, 0, 'Account To Change:')
 
@@ -86,12 +99,14 @@ def change_password():
     accounts[selection][1] = account_password
 
 def remove_account():
+    '''Removes an existing account'''
     # Get account
     selection = get_input(accounts, 0, 'Account To Delete:')
     del accounts[selection]
     print("Account Deleted")
 
 def exit():
+    '''Exits the program'''
     print("Exiting Program")
     global active
     active = False
@@ -125,7 +140,9 @@ if check_account():
     while active:
         # Get player's feature selection
         selection = get_input(features, 'description', "Select feature from the list below:")
+        print("\n")
         # Run feature
         features[selection].run()
+        print("\n")
 else:
     print("Incorrect username or password")
